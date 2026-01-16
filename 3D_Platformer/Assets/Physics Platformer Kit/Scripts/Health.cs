@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
 	public int currentHealth = 1;					//health of the object
 	public bool takeImpactDmg;						//does this object take damage from impacts?
 	public bool onlyRigidbodyImpact;				//if yes to the above, does it only take impact damage from other rigidbodies?
-	public bool respawn;							//should this object respawn when killed?
+	public bool respawn;                            //should this object respawn when killed?
 	public string[] impactFilterTag;				//if we take impact damage, don't take impact damage from these objects (tags)
 	public float hitFlashDelay = 0.1f;				//how long each flash lasts (smaller number = more rapid flashing)
 	public float flashDuration = 0.9f;				//how long flash lasts (object is invulnerable to damage during this time)
@@ -49,9 +49,10 @@ public class Health : MonoBehaviour
 	
 	//detecting damage and dying
 	void Update()
-	{		
-		//flash if we took damage
-		if (currentHealth < h)
+	{
+
+        //flash if we took damage
+        if (currentHealth < h)
 		{
 			flashing = true;
 			stopFlashTime = Time.time + flashDuration;
@@ -76,9 +77,10 @@ public class Health : MonoBehaviour
 		if (dead)
 			Death();
 	}
-	
-	//toggle the flashObject material tint color
-	void Flash()
+   
+
+    //toggle the flashObject material tint color
+    void Flash()
 	{
 		flashRender.material.color = (hitColor) ? hitFlashColor : originalColor;
 		if(Time.time > nextFlash)

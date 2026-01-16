@@ -4,9 +4,9 @@
 public class DealDamage : MonoBehaviour 
 {
 	private Health health;
-	
-	//remove health from object and push it
-	public void Attack(GameObject victim, int dmg, float pushHeight, float pushForce)
+
+    //remove health from object and push it
+    public void Attack(GameObject victim, int dmg, float pushHeight, float pushForce)
 	{
 		health = victim.GetComponent<Health>();		
 		//push
@@ -23,6 +23,7 @@ public class DealDamage : MonoBehaviour
 		if(health && !health.flashing)
 			health.currentHealth -= dmg;
 	}
+   
 }
 
 /* NOTE: if you just want to push objects you could use this script but set damage to 0. (ie: a bouncepad)

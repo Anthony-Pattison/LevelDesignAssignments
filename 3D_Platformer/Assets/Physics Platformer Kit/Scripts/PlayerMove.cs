@@ -34,8 +34,9 @@ public class PlayerMove : MonoBehaviour
 	public float jumpLeniancy = 0.17f;						//how early before hitting the ground you can press jump, and still have it work
 	[HideInInspector]
 	public int onEnemyBounce;					
-	
-	private int onJump;
+	public float DeathFloorYPos;                    // the height of the death floor
+
+    private int onJump;
 	private bool grounded;
 	private Transform[] floorCheckers;
 	private Quaternion screenMovementSpace;
@@ -85,9 +86,11 @@ public class PlayerMove : MonoBehaviour
 	
 	//get state of player, values and input
 	void Update()
-	{	
-		//stops rigidbody "sleeping" if we don't move, which would stop collision detection
-		rigid.WakeUp();
+	{
+        KillFloor();
+
+        //stops rigidbody "sleeping" if we don't move, which would stop collision detection
+        rigid.WakeUp();
 		//handle jumping
 		JumpCalculations ();
 		//adjust movement values if we're in the air or on the ground
@@ -237,9 +240,19 @@ public class PlayerMove : MonoBehaviour
 			}
 		}
 	}
-	
-	//push player at jump force
-	public void Jump(Vector3 jumpVelocity)
+    // kill floor
+
+    void KillFloor()
+    {
+        Vector3 PlayerPos = transform.position;
+        if (PlayerPos.y <= DeathFloorYPos)
+        {
+            GetComponent<Health>().currentHealth -= 5;
+        }
+    }
+
+    //push player at jump force
+    public void Jump(Vector3 jumpVelocity)
 	{
 		if(jumpSound)
 		{
